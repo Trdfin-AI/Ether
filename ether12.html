@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>document</title>
+    <!-- <script src="https://kit.fontawesome.com/08a57c03e1.js" crossorigin="anonymous"></script> -->
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Notification Popup Container */
+        .notificationContainer {
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        /* Primary Section  */
+        .primarySection {
+            background-color: #194a7a;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .primarySection img {
+            width: 50px;
+            margin-bottom: 15px;
+        }
+
+        .primarySection h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .primarySection p {
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        /* Secondary Section*/
+        .secondarySection {
+            background-color: #eff4fd;
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Install Button */
+        .installBtn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            cursor: pointer;
+            
+        }
+        a{
+            text-decoration: none !important;
+
+        }
+
+        .icon {
+            background-color: #0056b3;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 40px;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            font-size: 18px;
+         
+        }
+
+        .installBtn span {
+            background-color: #003c71;
+            color: white;
+            padding: 0 20px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            font-size: 16px;
+        }
+
+        .installBtn:hover .icon {
+            background-color: #004a99;
+        }
+
+        .installBtn:hover span {
+            background-color: #002b50;
+        }
+
+        /* Close Button */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: transparent;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Notification Container -->
+    <div class="notificationContainer" id="metaMaskNotification">
+        <!-- Primary Section -->
+        <div class="primarySection">
+            <button class="close-btn" onclick="closePopup()">✖</button>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg" alt="MetaMask Logo">
+            <h3>MetaMask Needed</h3>
+            <p>To continue, please install MetaMask.</p>
+        </div>
+
+        <!-- Second Section -->
+        <div class="secondarySection">
+            <a href="https://metamask.io/download.html" target="_blank">
+                <button class="installBtn">
+                    <div class="icon">
+                        <i class="fa-solid fa-download"></i>
+                    </div>
+                    <span>Install</span>
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function closePopup() {
+            document.getElementById('metaMaskNotification').style.display = 'none';
+        }
+    </script>
+<script src="https://kit.fontawesome.com/08a57c03e1.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

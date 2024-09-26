@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>document</title>
+    <script src="https://kit.fontawesome.com/08a57c03e1.js" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.2/ethers.umd.min.js"></script> -->
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f4;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary-color: #194a7a;
+            --secondary-color: #eff4fd;
+        }
+
+        .connect1 {
+            color: gray;
+            opacity: 20%;
+            font-size: 50px;
+            position: relative;
+            margin-top: -0px;
+            font-family: Arial, sans-serif;
+        }
+
+        .connect2 {
+            position: absolute;
+            top: 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 25px;
+            color: var(--secondary-color);
+        }
+
+        #connectContainer {
+            background-color: var(--primary-color);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 1px 8px 16px rgba(0, 0, 0, 0.2);
+            width: 250px;
+            position: relative;
+            overflow: visible;
+            height: 400px;
+        }
+
+        #connectContainer h2 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        /* Second box */
+        #walletContainer {
+            background-color: var(--secondary-color);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            color: #333;
+            height: 20vh;
+            position: relative;
+            width: 50vh;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 50px;
+        }
+
+        .metamask {
+            cursor: pointer;
+            position: absolute;
+            top: -25%;
+            transform: translateX(-50%);
+            background-color: var(--secondary-color);
+            border: 2px solid var(--secondary-color);
+            border-radius: 50px;
+            padding: 10px;
+            box-shadow: 5px 4px 9px 0px gray;
+        }
+
+        #termsMessage {
+            margin-top: 60px;
+            font-size: 14px;
+            font-family: poppins;
+        }
+
+        #walletContainer img {
+            width: 60px;
+        }
+
+        #walletContainer p {
+            color: #666;
+        }
+
+        #walletContainer p a {
+            color: #1b74e4;
+            text-decoration: none;
+        }
+
+        #account {
+            background-color: gainsboro;
+            border: 2px solid gainsboro;
+            border-radius: 30px;
+            font-size: 10px;
+            padding: 3px 10px;
+            font-weight: bold;
+        }
+
+        #copy {
+            font-size: 10px;
+            cursor: pointer;
+        }
+
+        #balance {
+            font-weight: bold;
+            font-size: 10px;
+        }
+
+        #eth {
+            font-weight: bold;
+            font-size: 10px;
+        }
+
+        .balance {
+            margin-top: 20px;
+        }
+
+        #connectButton {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            width: 100%;
+            position: relative;
+            margin-top: 15%;
+        }
+
+        #connectButton:hover {
+            background-color: #165bb3;
+        }
+
+        #plusSymbol {
+            border: 1px solid white;
+            border-radius: 30px;
+            padding: 2px 3px;
+            background-color: rgb(18, 129, 233);
+        }
+
+        #message {
+            margin-top: 15px;
+            font-size: 14px;
+            color: red;
+        }
+
+        #accountDetails {
+            display: none;
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            word-wrap: break-word;
+            font-size: 12px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .accountCopy {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .notification {
+            display: none;
+            position: fixed;
+            bottom: unset;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+            animation: slideDown 0.5s ease-out, fadeOut 4.5s ease-in forwards;
+            width: 50%;
+            max-width: 350px;
+        }
+
+        .notification.show {
+            display: block;
+        }
+
+        .notification .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            cursor: pointer;
+        }
+
+        @keyframes slideDown {
+            0% {
+                transform: translate(-50%, -100%);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translate(-50%, 0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+            }
+        }
+
+
+        #copyNotification {
+            display: none;
+            position: fixed;
+            bottom: 48%;
+            left: 63%;
+            transform: translateX(-50%);
+            color: gray;
+            z-index: 1000;
+            font-size: 10px;
+        }
+
+        #copyNotification.show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Notification element -->
+    <div class="notification" id="notification">
+        Connected to MetaMask and Balance Fetched Successfully!
+        <button class="close-btn" id="closeNotification">&times;</button>
+    </div>
+
+    <!-- Copy notification -->
+    <div id="copyNotification">
+        <i class="fa-solid fa-check"></i> Copied!
+    </div>
+
+    <div id="connectContainer">
+        <h1 class="connect1">CONNECT</h1>
+        <h2 class="connect2">Connect Your Wallet</h2>
+        <div id="walletContainer">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg" class="metamask"
+                alt="MetaMask Logo" id="metamaskLogo">
+            <p id="termsMessage">By connecting, you agree to the <a href="#">Terms of Service</a> and <a
+                    href="#">Privacy Policy</a>.</p>
+            <div id="accountDetails">
+                <div class="accountCopy"> <strong>Account:</strong><span id="account"></span> <i
+                        class="fa-regular fa-copy" id="copy"></i></div><br>
+                <strong class="balance">Balance:</strong> <span id="balance"></span> <span id="eth">ETH</span>
+            </div>
+        </div>
+
+        <button id="connectButton">
+            <div>MetaMask <i class="fa-solid fa-plus" id="plusSymbol"></i></div>
+        </button>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        const connectButton = document.getElementById('connectButton');
+        const messageElement = document.getElementById('message');
+        const accountDetailsElement = document.getElementById('accountDetails');
+        const accountElement = document.getElementById('account');
+        const balanceElement = document.getElementById('balance');
+        const plusSymbol = document.getElementById('plusSymbol');
+        const termsMessage = document.getElementById('termsMessage');
+        const metamaskLogo = document.getElementById('metamaskLogo');
+        const notification = document.getElementById('notification');
+        const closeNotificationBtn = document.getElementById('closeNotification');
+        const copyButton = document.getElementById('copy');
+        const copyNotification = document.getElementById('copyNotification');
+
+        async function connectWallet() {
+            if (typeof window.ethereum !== 'undefined') {
+                console.log('MetaMask is installed!');
+
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    const account = accounts[0];
+
+                    const balance = await window.ethereum.request({
+                        method: 'eth_getBalance',
+                        params: [account, 'latest']
+                    });
+
+                    const balanceInEther = parseFloat(ethereum.utils.fromWei(balance, 'ether')).toFixed(4);
+
+                    accountElement.textContent = account;
+                    balanceElement.textContent = balanceInEther;
+
+                    accountDetailsElement.style.display = 'block';
+                    termsMessage.style.display = 'none';
+
+                    showNotification();
+                } catch (error) {
+                    if (error.code === 4001) {
+                        messageElement.textContent = 'Connection request denied. Please allow access in MetaMask.';
+                    } else {
+                        messageElement.textContent = 'An error occurred: ' + error.message;
+                    }
+                }
+            } else {
+                messageElement.textContent = 'MetaMask is not installed. Please install MetaMask!';
+            }
+        }
+
+        function showNotification() {
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 5000);
+        }
+
+        function showCopyNotification() {
+            copyNotification.classList.add('show');
+            setTimeout(() => {
+                copyNotification.classList.remove('show');
+            }, 2000);
+        }
+
+        closeNotificationBtn.addEventListener('click', () => {
+            notification.classList.remove('show');
+        });
+
+        connectButton.addEventListener('click', connectWallet);
+        plusSymbol.addEventListener('click', connectWallet);
+        metamaskLogo.addEventListener('click', connectWallet);
+
+        copyButton.addEventListener('click', () => {
+            const accountText = accountElement.textContent;
+            navigator.clipboard.writeText(accountText).then(() => {
+                showCopyNotification();
+            }).catch(err => {
+                console.log('Something went wrong', err);
+            });
+        });
+
+        ethereum.utils = {
+            fromWei: function (wei, unit) {
+                const units = {
+                    'ether': '1000000000000000000',
+                };
+                return (parseInt(wei, 10) / units[unit]).toString();
+            }
+        };
+    </script>
+
+</body>
+
+</html>
